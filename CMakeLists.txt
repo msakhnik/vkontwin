@@ -1,0 +1,43 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(vkontwin)
+ 
+SET(CMAKE_BUILD_TYPE Release)
+ 
+SET(CMAKE_CXX_FLAGS "-Wall")
+ 
+FIND_PACKAGE(Qt4 REQUIRED)
+ 
+INCLUDE(${QT_USE_FILE})
+ 
+SET( HWQ_Qt4_SRC
+	src/MainWindow.h
+	src/HelloWidget.h
+)
+SET( HWQ_Qt4_UI
+)
+SET( HWQ_Qt4_RES
+)
+ 
+QT4_WRAP_CPP(HWQ_MOC_CPP ${HWQ_Qt4_SRC})
+QT4_WRAP_UI(HWQ_UI_CPP ${HWQ_Qt4_UI})
+QT4_ADD_RESOURCES(HWQ_RES_H ${HWQ_Qt4_RES})
+ 
+INCLUDE_DIRECTORIES( .)
+ 
+# General
+SET( HWQ_SRC
+	src/main.cpp
+	src/MainWindow.cpp
+	src/HelloWidget.cpp
+	${HWQ_MOC_CPP}
+	${HWQ_UI_CPP}
+	${HWQ_RES_H}
+)
+ 
+SET( HWQ_LIB
+	${QT_LIBRARIES}
+)
+ 
+ADD_EXECUTABLE( vkontwin ${HWQ_SRC} )
+TARGET_LINK_LIBRARIES( vkontwin ${HWQ_LIB} )
+INSTALL_TARGETS( /bin vkontwin)
